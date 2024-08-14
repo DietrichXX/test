@@ -3,10 +3,12 @@
 namespace App\Services;
 
 use App\Models\Task;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class TaskService
 {
-    public function getAll()
+    public function getAll(): Collection
     {
         return Task::all();
     }

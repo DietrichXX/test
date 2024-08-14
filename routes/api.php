@@ -15,8 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
-
-Route::apiResource('tasks', TaskController::class);
+Route::apiResource('tasks', TaskController::class)->except(['show']);
+Route::get('tasks/search', [TaskController::class, 'search']);
+Route::get('tasks/export', [TaskController::class, 'export']);

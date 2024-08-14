@@ -3,15 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TaskRequest;
+use App\Interfaces\ExportCSVActionInterface;
+use App\Interfaces\SearchServiceInterface;
 use App\Services\TaskService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class TaskController extends Controller
 {
     protected object $taskService;
+    protected object $taskSearchService;
 
-    public function __construct(TaskService $taskService){
+    public function __construct(TaskService $taskService, SearchServiceInterface $taskSearchService){
         $this->taskService = $taskService;
+        $this->taskSearchService = $taskSearchService;
     }
 
     /**
@@ -60,5 +66,20 @@ class TaskController extends Controller
         }else{
             return response()->json(['message' => 'Task delete unsuccessfully']);
         }
+    }
+
+    public function search(Request $request): JsonResponse
+    {
+        $tasks = $this->taskSearchService->scopeSearch($request->query('keyword'));
+        return response()->json([
+            'tasks' => $tasks,
+            'message' => 'Search successfully',
+        ]);
+    }
+
+    public function export(ExportCSVActionInterface $exportTasksToCSV): BinaryFileResponse
+    {
+        $tasks = $this->taskService->getAll();
+        return $exportTasksToCSV($tasks);
     }
 }
