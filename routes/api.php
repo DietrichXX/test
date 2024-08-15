@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ShapeController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -18,3 +20,9 @@ use Illuminate\Support\Facades\Route;
 Route::apiResource('tasks', TaskController::class)->except(['show']);
 Route::get('tasks/search', [TaskController::class, 'search']);
 Route::get('tasks/export', [TaskController::class, 'export']);
+
+Route::apiResource('products', ProductController::class)->except(['show']);
+
+
+Route::get('shapes/area', [ShapeController::class, 'area']);
+Route::get('shapes/perimeter', [ShapeController::class, 'perimeter']);
