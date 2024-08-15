@@ -37,7 +37,7 @@ class TaskController extends Controller
      */
     public function store(TaskRequest $request): JsonResponse
     {
-        $task = $this->taskService->create($request->validated());
+        $task = $this->taskService->store($request->validated());
         return response()->json([
             'task' => $task,
             'message' => 'Task store successfully',

@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Models\Task;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 
 class TaskService
 {
@@ -13,7 +12,7 @@ class TaskService
         return Task::all();
     }
 
-    public function create(array $data): Task
+    public function store(array $data): Task
     {
         return Task::create([
             'title' => $data['title'],
