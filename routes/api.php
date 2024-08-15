@@ -1,9 +1,9 @@
 <?php
 
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShapeController;
 use App\Http\Controllers\TaskController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +23,7 @@ Route::get('tasks/export', [TaskController::class, 'export']);
 
 Route::apiResource('products', ProductController::class)->except(['show']);
 
+Route::post('shapes/area', [ShapeController::class, 'area']);
+Route::post('shapes/perimeter', [ShapeController::class, 'perimeter']);
 
-Route::get('shapes/area', [ShapeController::class, 'area']);
-Route::get('shapes/perimeter', [ShapeController::class, 'perimeter']);
+Route::apiResource('messages', MessageController::class)->except(['show']);

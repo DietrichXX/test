@@ -2,19 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Shape;
+use App\Interfaces\ShapeFactoryInterface;
+
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class ShapeController extends Controller
 {
-    protected object $shape;
+    protected object $shapeFactory;
 
-    public function __construct(Shape $shape){
-        $this->shape = $shape;
+    public function __construct(ShapeFactoryInterface $shapeFactory){
+        $this->shapeFactory = $shapeFactory;
     }
 
-    public function area()
+    public function area(Request $request): JsonResponse
     {
-        $area = $this->shape->getArea();
+        $shape = $this->shapeFactory->createShape($request->all());
+        $area = $shape->getArea();
 
         return response()->json([
             'area' => $area,
@@ -22,9 +26,10 @@ class ShapeController extends Controller
         ]);
     }
 
-    public function perimeter()
+    public function perimeter(Request $request): JsonResponse
     {
-        $perimeter = $this->shape->getPerimeter();
+        $shape = $this->shapeFactory->createShape($request->all());
+        $perimeter = $shape->getPerimeter();
 
         return response()->json([
             'perimeter' => $perimeter,
