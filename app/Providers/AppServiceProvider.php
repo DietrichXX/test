@@ -19,7 +19,21 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(SearchServiceInterface::class, TaskSearchService::class);
 
-        $this->app->bind(Shape::class, Square::class);
+//        $this->app->bind(Shape::class, function () {
+//            $length = 10;
+//            $width = 8;
+//            return new Rectangle($length, $width);
+//        });
+
+        $this->app->bind(Shape::class, function () {
+            $side = 10;
+            return new Square($side);
+        });
+
+//        $this->app->bind(Shape::class, function () {
+//            $radius = 10;
+//            return new Circle($radius);
+//        });
     }
 
     /**

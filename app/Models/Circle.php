@@ -7,14 +7,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Circle extends Shape
 {
     use HasFactory;
+    protected int $radius;
 
-    public function getArea(int $side): float
+    public function __construct(int $radius)
     {
-        return pi() * pow($side, 2);
+     $this->radius = $radius;
     }
 
-    public function getPerimeter(int $side):float
+    public function getArea(): float
     {
-        return 2 * pi() * $side;
+        return pi() * pow($this->radius, 2);
+    }
+
+    public function getPerimeter():float
+    {
+        return 2 * pi() * $this->radius;
     }
 }

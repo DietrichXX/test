@@ -8,20 +8,23 @@ class Rectangle extends Shape
 {
     use HasFactory;
 
-    protected int $oppositeSide;
+    protected int $length;
 
-    public function getArea(int $side): float
+    protected int $width;
+
+    public function __construct(int $length, int $width)
     {
-        return $this->oppositeSide * $side;
+        $this->length = $length;
+        $this->width = $width;
     }
 
-    public function getPerimeter(int $side): float
+    public function getArea(): float
     {
-        return ($this->oppositeSide + $side) * 2;
+        return $this->length * $this->width;
     }
 
-    public function setOppositeSide(int $side): void
+    public function getPerimeter():float
     {
-        $this->oppositeSide = $side;
+        return ($this->length + $this->width) * 2;
     }
 }

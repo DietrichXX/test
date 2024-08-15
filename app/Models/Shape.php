@@ -8,9 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 abstract class Shape extends Model
 {
     use HasFactory;
+    abstract public function getArea(): float;
 
-    abstract public function getArea(int $side): float;
-
-    abstract public function getPerimeter(int $side): float;
-
+    abstract public function getPerimeter(): float;
 }
