@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShapeController;
 use App\Http\Controllers\TaskController;
@@ -27,3 +28,5 @@ Route::post('shapes/area', [ShapeController::class, 'area']);
 Route::post('shapes/perimeter', [ShapeController::class, 'perimeter']);
 
 Route::apiResource('messages', MessageController::class)->except(['show']);
+
+Route::post('notifications/send', [NotificationController::class, 'store']);
