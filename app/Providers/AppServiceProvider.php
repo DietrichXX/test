@@ -8,6 +8,10 @@ use App\Interfaces\NotificationServiceInterface;
 use App\Interfaces\ProductInterface;
 use App\Interfaces\SearchServiceInterface;
 use App\Interfaces\ShapeFactoryInterface;
+use App\Interfaces\TextMessageInterface;
+use App\Models\Messages\ImageMessage;
+use App\Models\Messages\Message;
+use App\Models\Messages\VideoMessage;
 use App\Models\Notifications\EmailNotification;
 use App\Models\Notifications\PushNotification;
 use App\Models\Notifications\SmsNotification;
@@ -37,6 +41,14 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $this->app->bind(ShapeFactoryInterface::class, ShapeFactory::class);
+
+        $this->app->bind(TextMessageInterface::class, function () {
+            return match (true) {
+                Request::has('video') => new VideoMessage(),
+                Request::has('image') => new ImageMessage(),
+                default => new Message(),
+            };
+        });
 
         $this->app->bind(NotificationServiceInterface::class, NotificationService::class);
 
